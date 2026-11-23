@@ -1,0 +1,67 @@
+PRUEBAS.txt
+
+Clases IA - Ronda de pruebas
+Fecha: 22 de noviembre de 2026
+
+------------------------------------------------------------
+1. PRUEBAS UNITARIAS (Vitest)
+------------------------------------------------------------
+Comando: npm test
+Resultado: 13 de 13 pruebas superadas
+Archivos probados:
+  - src/lib/session.test.ts (firma/verificación de sesión, token alterado, firma inválida, tokens vacíos, nombre de cookie)
+  - src/lib/coaches.test.ts (validación de coach, conversión de formulario, limpieza de entradas)
+
+------------------------------------------------------------
+2. TYPECHECK (TypeScript)
+------------------------------------------------------------
+Comando: npm run typecheck
+Resultado: aprobado (sin errores)
+
+------------------------------------------------------------
+3. BUILD DE PRODUCCIÓN (Next.js)
+------------------------------------------------------------
+Comando: npm run build
+Resultado: aprobado
+Rutas generadas:
+  - / (servidor bajo demanda)
+  - /login (servidor bajo demanda)
+  - /coaches (servidor bajo demanda)
+  - /_not-found (estático)
+
+------------------------------------------------------------
+4. PRUEBAS FUNCIONALES CONTRA SUPABASE (Postgres)
+------------------------------------------------------------
+Resultado: 7 de 7 pruebas superadas
+
+  [OK] Crear coach
+  [OK] Listar coaches
+  [OK] Editar coach (actualización de profesión)
+  [OK] Trigger actualizado_en (se actualiza al editar)
+  [OK] Desactivar coach (borrado lógico, estado = false)
+  [OK] Insertar sesión de logout (tabla sesiones)
+  [OK] Listar sesiones
+
+Tablas verificadas en Supabase:
+  - public.coaches (codigo, nombres, apellidos, correo, telefono, profesion, estado, creado_en, actualizado_en)
+  - public.sesiones (id, usuario, fin, user_agent)
+
+------------------------------------------------------------
+5. SERVIDOR DE DESARROLLO (http://localhost:3000)
+------------------------------------------------------------
+Resultado: aprobado
+  - GET /login -> 200 (página de login)
+  - GET / -> 307 redirige a /login (no autenticado)
+  - GET /coaches -> 307 redirige a /login (no autenticado)
+
+------------------------------------------------------------
+6. RESUMEN GENERAL
+------------------------------------------------------------
+Pruebas unitarias: 13/13 OK
+Typecheck: OK
+Build: OK
+Pruebas funcionales: 7/7 OK
+Servidor dev: OK
+
+Estado: TODAS LAS PRUEBAS SUPERADAS. La app está lista para desplegarse.
+Consultar DESPLIEGUE.txt para los pasos de despliegue en Vercel.

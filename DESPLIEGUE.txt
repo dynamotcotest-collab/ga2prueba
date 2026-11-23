@@ -1,0 +1,55 @@
+DESPLIEGUE.txt
+
+App: Clases IA
+Stack: Next.js (App Router) + TypeScript + Tailwind + Supabase (Postgres)
+Acceso: usuario "admin", clave "12345"
+
+1. Requisitos
+- Cuenta gratuita en Vercel.
+- Proyecto de Supabase con el esquema aplicado (paso 2).
+- Node 20+ solo si vas a correr la app en local.
+
+2. Aplicar el esquema en Supabase
+- Entra a Supabase -> SQL Editor -> New query.
+- Pega el contenido de supabase/schema.sql y pulsa Run.
+- Deben quedar creadas las tablas public.coaches y public.sesiones.
+
+3. Variables de entorno en Vercel
+En Vercel -> tu proyecto -> Settings -> Environment Variables, añade:
+- NEXT_PUBLIC_SUPABASE_URL = https://<tu-ref>.supabase.co
+- NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY = sb_publishable_...
+- SUPABASE_SECRET_KEY = sb_secret_...
+- AUTH_USERNAME = admin
+- AUTH_PASSWORD = 12345
+- AUTH_SECRET = un valor aleatorio largo (genera uno nuevo; no reuses el de .env.local)
+
+Los valores de Supabase están en supabase.txt.
+
+4. Subir el codigo a GitHub
+git init
+git add .
+git commit -m "Clases IA: app inicial"
+git branch -M main
+git remote add origin <URL_DE_TU_REPO>
+git push -u origin main
+
+5. Desplegar en Vercel
+- Vercel -> Add New -> Project.
+- Importa el repositorio de GitHub.
+- Framework Preset: Next.js (se detecta automatico).
+- Verifica que las variables de entorno esten configuradas.
+- Pulsa Deploy.
+
+6. Verificar
+- Abre la URL que te da Vercel.
+- Inicia sesion con admin / 12345.
+- Entra a Coaches y crea, edita y desactiva un registro.
+
+7. Comandos locales
+npm install
+npm run dev        # http://localhost:3000
+npm run typecheck
+npm test
+npm run build
+
+Nota: el despliegue final lo haces tu; no despliego desde aqui.

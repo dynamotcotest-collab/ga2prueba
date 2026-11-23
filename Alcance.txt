@@ -1,0 +1,32 @@
+1. Alcance 
+
+  1.a Login
+  Vas a utilizar las credenciales de acceso de supabase para autenticarte con redes sociales como google.
+  Las credenciales y los controles de acceso los registraras en la base de datos de supabase.
+  Al iniciar sesion si todo es correcto vas a ir a una pagina de bienvenida donde tendremos una opcion en un
+  menu lateral.
+  
+  el menu lateral por el momento tendra una sola opcion que es el registro de coaches y el logout. quisiera
+  un estilo grafico donde tenga un header con la informacion del usuario logueado (que recuperaras de supabase con
+  las redes socialesy un icono de avatar o el avatar de las redes sociales del usuario logueado.
+  
+  1.b Registro de Coaches 
+  Esta opcion sera un CRUD de mantenimiento de datos, donde priorizaras la experiencia de usuario UX/UI en la interaccion.
+  Requiero que la funcionalidad sea altamente interactiva, evitando dobles pasos para ejecutar funciones.Cada accion al 
+  finalizar tendra un modal de confirmacion de ejecucion, con eso el usuario sabra si realizaste o no la accion.
+  
+  Los campos que requiero para el registro de coaches son los siguientes:
+  Codigo (entero autonumerico que sera la llave principal), nombres , apellidos, correo electronico, numero de telefono que puede ser de whatsapp tambien, profesion y un campo de estado logico, ya que no habran eliminaciones fisicas de datos.
+  
+  1.Logout
+  Al pulsar el logout debes cerrar la sesion del usuario, debes marcar en una tabla de firebase el fin de la sesion y
+  redireccionar al login.
+  
+2. Definicion Tecnica
+
+ Para desarrollar esta aplicacion, requiero tener el menor costo, es decir quiero una aplicacion bootstrap entonces
+ pensaba desplegarla en algun servicio gratuito como vercel , el stack tecnologico tu lo vas a decidir con tal que
+ sea compatible con la capa gratuita de supabase y de vercel. si requieres algo que yo configure me avisas el paso a paso.
+
+3. Indicaciones de Despliegue
+Al terminar de programar la aplicacion, vas a relaizar una ronda de pruebas y los resultados los escribiras en un archivo de resumen txt para saber que pasaron las pruebas. Luego me indicaras en un archivo txt los pasos para yo iniciar el despliegue o en todo caso me diras si puedes desplegarlo.
