@@ -6,6 +6,7 @@ export interface Coach {
   telefono: string | null;
   profesion: string | null;
   estado: boolean;
+  talleres?: Taller[];
 }
 
 export interface CoachInput {
@@ -15,6 +16,21 @@ export interface CoachInput {
   telefono?: string;
   profesion?: string;
   estado?: boolean;
+  taller_ids?: number[];
+}
+
+export interface Taller {
+  id: number;
+  nombre: string;
+  descripcion: string | null;
+  duracion_horas: number | null;
+  estado: boolean;
+}
+
+export interface CoachTaller {
+  id: number;
+  coach_id: number;
+  taller_id: number;
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -36,6 +52,11 @@ export function validateCoach(input: CoachInput): Record<string, string> {
 }
 
 export function coachFromFormData(formData: FormData): CoachInput {
+  const tallerIdsRaw = formData.getAll("taller_ids");
+  const tallerIds: number[] = tallerIdsRaw
+    .map((v) => Number(v))
+    .filter((n) => Number.isInteger(n));
+
   return {
     nombres: String(formData.get("nombres") ?? "").trim(),
     apellidos: String(formData.get("apellidos") ?? "").trim(),
@@ -43,6 +64,7 @@ export function coachFromFormData(formData: FormData): CoachInput {
     telefono: String(formData.get("telefono") ?? "").trim() || undefined,
     profesion: String(formData.get("profesion") ?? "").trim() || undefined,
     estado: formData.get("estado") === "true",
+    taller_ids: tallerIds,
   };
 }
 

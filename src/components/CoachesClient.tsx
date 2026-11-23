@@ -6,12 +6,18 @@ import {
   deleteCoach,
   updateCoach,
 } from "@/lib/actions/coaches";
-import type { Coach } from "@/lib/coaches";
+import type { Coach, Taller } from "@/lib/coaches";
 import CoachFormModal from "./CoachFormModal";
 
 type FormState = { mode: "create" } | { mode: "edit"; coach: Coach } | null;
 
-export default function CoachesClient({ coaches }: { coaches: Coach[] }) {
+export default function CoachesClient({
+  coaches,
+  talleres,
+}: {
+  coaches: Coach[];
+  talleres: Taller[];
+}) {
   const [form, setForm] = useState<FormState>(null);
   const [result, setResult] = useState<{ title: string; message: string } | null>(
     null
@@ -36,6 +42,11 @@ export default function CoachesClient({ coaches }: { coaches: Coach[] }) {
         });
       }
     });
+  }
+
+  function tallerNombres(codigo: number): string {
+    const coach = coaches.find((c) => c.codigo === codigo);
+    return coach?.talleres?.map((t) => t.nombre).join(", ") ?? "-";
   }
 
   return (
@@ -63,6 +74,7 @@ export default function CoachesClient({ coaches }: { coaches: Coach[] }) {
               <Th>Correo</Th>
               <Th>Teléfono</Th>
               <Th>Profesión</Th>
+              <Th>Talleres</Th>
               <Th>Estado</Th>
               <Th>Acciones</Th>
             </tr>
@@ -71,7 +83,7 @@ export default function CoachesClient({ coaches }: { coaches: Coach[] }) {
             {coaches.length === 0 && (
               <tr>
                 <td
-                  colSpan={8}
+                  colSpan={9}
                   className="px-4 py-6 text-center text-sm text-gray-500"
                 >
                   No hay coaches registrados.
@@ -86,6 +98,11 @@ export default function CoachesClient({ coaches }: { coaches: Coach[] }) {
                 <Td>{coach.correo ?? "-"}</Td>
                 <Td>{coach.telefono ?? "-"}</Td>
                 <Td>{coach.profesion ?? "-"}</Td>
+                <Td>
+                  <span className="text-sm text-gray-700 truncate max-w-[120px]">
+                    {tallerNombres(coach.codigo)}
+                  </span>
+                </Td>
                 <Td>
                   <span
                     className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${
@@ -125,6 +142,7 @@ export default function CoachesClient({ coaches }: { coaches: Coach[] }) {
         <CoachFormModal
           key="create"
           title="Nuevo coach"
+          talleres={talleres}
           action={createCoach}
           onClose={() => setForm(null)}
         />
@@ -134,6 +152,7 @@ export default function CoachesClient({ coaches }: { coaches: Coach[] }) {
           key={`edit-${form.coach.codigo}`}
           title={`Editar coach #${form.coach.codigo}`}
           coach={form.coach}
+          talleres={talleres}
           action={updateCoach}
           onClose={() => setForm(null)}
         />

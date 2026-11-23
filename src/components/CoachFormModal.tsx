@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useState, type ReactNode } from "react";
-import type { Coach } from "@/lib/coaches";
+import type { Coach, Taller } from "@/lib/coaches";
 import type { CoachState } from "@/lib/types";
 
 type CoachAction = (prev: CoachState, formData: FormData) => Promise<CoachState>;
@@ -9,6 +9,7 @@ type CoachAction = (prev: CoachState, formData: FormData) => Promise<CoachState>
 interface CoachFormModalProps {
   title: string;
   coach?: Coach;
+  talleres: Taller[];
   action: CoachAction;
   onClose: () => void;
 }
@@ -16,6 +17,7 @@ interface CoachFormModalProps {
 export default function CoachFormModal({
   title,
   coach,
+  talleres,
   action,
   onClose,
 }: CoachFormModalProps) {
@@ -24,6 +26,10 @@ export default function CoachFormModal({
     {}
   );
   const [success, setSuccess] = useState<string | null>(null);
+
+  const selectedTallerIds = useState<number[]>(
+    coach?.talleres?.map((t) => t.id) ?? []
+  )[0];
 
   useEffect(() => {
     if (state.ok) {
@@ -46,6 +52,8 @@ export default function CoachFormModal({
     );
   }
 
+  const tallerIdsString = selectedTallerIds.map(String);
+
   return (
     <ModalShell onClose={onClose}>
       <h2 className="text-lg font-semibold">{title}</h2>
@@ -67,6 +75,34 @@ export default function CoachFormModal({
           />
           Activo
         </label>
+
+        <div className="mt-3">
+          <label className="text-sm font-medium text-gray-700 block mb-2">
+            Talleres que dicta
+          </label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-40 overflow-y-auto border border-gray-200 rounded-lg p-2 bg-gray-50">
+            {talleres.map((taller) => (
+              <label key={taller.id} className="flex items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  name="taller_ids"
+                  value={String(taller.id)}
+                  defaultChecked={selectedTallerIds.includes(taller.id)}
+                  className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                />
+                <span className="text-gray-700">{taller.nombre}</span>
+                {taller.duracion_horas && (
+                  <span className="text-xs text-gray-500 ml-1">({taller.duracion_horas}h)</span>
+                )}
+              </label>
+            ))}
+          </div>
+          {talleres.length === 0 && (
+            <p className="text-sm text-gray-500 mt-1">
+              No hay talleres en el catalogo.
+            </p>
+          )}
+        </div>
 
         {state.error && <p className="text-sm text-red-600">{state.error}</p>}
 
