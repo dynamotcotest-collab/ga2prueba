@@ -32,7 +32,7 @@ Rutas generadas:
 ------------------------------------------------------------
 4. PRUEBAS FUNCIONALES CONTRA SUPABASE (Postgres)
 ------------------------------------------------------------
-Resultado: 7 de 7 pruebas superadas
+Resultado: 15 de 15 pruebas superadas
 
   [OK] Crear coach
   [OK] Listar coaches
@@ -41,9 +41,18 @@ Resultado: 7 de 7 pruebas superadas
   [OK] Desactivar coach (borrado lógico, estado = false)
   [OK] Insertar sesión de logout (tabla sesiones)
   [OK] Listar sesiones
+  [OK] Talleres disponibles (catalogo)
+  [OK] Asignar talleres al coach
+  [OK] Listar coach con talleres
+  [OK] Editar coach (cambiar profesión)
+  [OK] Reemplazar talleres (eliminar y agregar)
+  [OK] Talleres actualizados (1 solo)
+  [OK] Desactivar coach (estado=false)
 
 Tablas verificadas en Supabase:
   - public.coaches (codigo, nombres, apellidos, correo, telefono, profesion, estado, creado_en, actualizado_en)
+  - public.talleres (id, nombre, descripcion, duracion_horas, estado, creado_en)
+  - public.coach_talleres (id, coach_id, taller_id, asignado_en)
   - public.sesiones (id, usuario, fin, user_agent)
 
 ------------------------------------------------------------
@@ -60,7 +69,7 @@ Resultado: aprobado
 Pruebas unitarias: 13/13 OK
 Typecheck: OK
 Build: OK
-Pruebas funcionales: 7/7 OK
+Pruebas funcionales: 15/15 OK
 Servidor dev: OK
 
 Estado: TODAS LAS PRUEBAS SUPERADAS. La app está lista para desplegarse.
