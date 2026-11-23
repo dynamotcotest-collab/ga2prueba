@@ -9,7 +9,7 @@ export default async function ProtectedLayout({ children }: { children: ReactNod
   if (!user) redirect("/login");
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Header user={{ username: user.username, name: user.name }} />
       <div className="flex">
         <Sidebar />
