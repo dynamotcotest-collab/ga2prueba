@@ -48,6 +48,12 @@ Resultado: 15 de 15 pruebas superadas
   [OK] Reemplazar talleres (eliminar y agregar)
   [OK] Talleres actualizados (1 solo)
   [OK] Desactivar coach (estado=false)
+  [OK] Crear taller
+  [OK] Listar talleres
+  [OK] Editar taller
+  [OK] Taller editado correctamente
+  [OK] Eliminar taller
+  [OK] Taller ya no existe
 
 Tablas verificadas en Supabase:
   - public.coaches (codigo, nombres, apellidos, correo, telefono, profesion, estado, creado_en, actualizado_en)
@@ -62,6 +68,7 @@ Resultado: aprobado
   - GET /login -> 200 (página de login)
   - GET / -> 307 redirige a /login (no autenticado)
   - GET /coaches -> 307 redirige a /login (no autenticado)
+  - GET /talleres -> 307 redirige a /login (no autenticado)
 
 ------------------------------------------------------------
 6. RESUMEN GENERAL
@@ -69,7 +76,7 @@ Resultado: aprobado
 Pruebas unitarias: 13/13 OK
 Typecheck: OK
 Build: OK
-Pruebas funcionales: 15/15 OK
+Pruebas funcionales: 21/21 OK
 Servidor dev: OK
 
 Estado: TODAS LAS PRUEBAS SUPERADAS. La app está lista para desplegarse.
